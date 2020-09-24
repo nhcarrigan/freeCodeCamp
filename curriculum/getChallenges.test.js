@@ -5,11 +5,10 @@ const {
   getEnglishPath,
   isEnglishChallenge
 } = require('./getChallenges');
-
+const path = require('path');
 /* eslint-disable max-len */
 const INVALID_PATH = 'not/challenge/path';
-const ENGLISH_PATH =
-  'curriculum/challenges/english/01-responsive-web-design/applied-accessibility/add-a-text-alternative-to-images-for-visually-impaired-accessibility.english.md';
+const ENGLISH_PATH = `curriculum${path.sep}challenges${path.sep}english${path.sep}01-responsive-web-design${path.sep}applied-accessibility${path.sep}add-a-text-alternative-to-images-for-visually-impaired-accessibility.english.md`;
 const CHINESE_PATH =
   'curriculum/challenges/chinese/01-responsive-web-design/applied-accessibility/add-a-text-alternative-to-images-for-visually-impaired-accessibility.chinese.md';
 const NOT_LANGUAGE_PATH =

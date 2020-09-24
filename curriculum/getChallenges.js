@@ -268,12 +268,12 @@ exports.getEnglishPath = getEnglishPath;
 exports.isEnglishChallenge = isEnglishChallenge;
 
 function superBlockInfoFromPath(filePath) {
-  const [maybeSuper] = filePath.split(path.sep);
+  const [maybeSuper] = filePath.split('/');
   return superBlockInfo(maybeSuper);
 }
 
 function superBlockInfoFromFullPath(fullFilePath) {
-  const [, , maybeSuper] = fullFilePath.split(path.sep).reverse();
+  const [, , maybeSuper] = fullFilePath.split('/').reverse();
   return superBlockInfo(maybeSuper);
 }
 
@@ -291,12 +291,12 @@ function superBlockInfo(fileName) {
 }
 
 function getBlockNameFromPath(filePath) {
-  const [, block] = filePath.split(path.sep);
+  const [, block] = filePath.split('/');
   return block;
 }
 
 function getBlockNameFromFullPath(fullFilePath) {
-  const [, block] = fullFilePath.split(path.sep).reverse();
+  const [, block] = fullFilePath.split('/').reverse();
   return block;
 }
 
