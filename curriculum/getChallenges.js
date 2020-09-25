@@ -20,6 +20,7 @@ const challengesDir = path.resolve(__dirname, './challenges');
 const metaDir = path.resolve(challengesDir, '_meta');
 exports.challengesDir = challengesDir;
 exports.metaDir = metaDir;
+const pathSep = /[\\\/]/;
 
 function getChallengesDirForLang(lang) {
   return path.resolve(challengesDir, `./${lang}`);
@@ -232,7 +233,7 @@ exports.createChallenge = createChallenge;
 function getEnglishPath(fullPath) {
   const posix = path
     .normalize(fullPath)
-    .split(path.sep)
+    .split(pathSep)
     .join(path.posix.sep);
   const match = posix.match(/(.*curriculum\/challenges\/)([^/]*)(.*)(\2)(.*)/);
   const lang = getChallengeLang(fullPath);
@@ -268,12 +269,12 @@ exports.getEnglishPath = getEnglishPath;
 exports.isEnglishChallenge = isEnglishChallenge;
 
 function superBlockInfoFromPath(filePath) {
-  const [maybeSuper] = filePath.split('/');
+  const [maybeSuper] = filePath.split(pathSep);
   return superBlockInfo(maybeSuper);
 }
 
 function superBlockInfoFromFullPath(fullFilePath) {
-  const [, , maybeSuper] = fullFilePath.split('/').reverse();
+  const [, , maybeSuper] = fullFilePath.split(pathSep).reverse();
   return superBlockInfo(maybeSuper);
 }
 
@@ -291,12 +292,12 @@ function superBlockInfo(fileName) {
 }
 
 function getBlockNameFromPath(filePath) {
-  const [, block] = filePath.split('/');
+  const [, block] = filePath.split(pathSep);
   return block;
 }
 
 function getBlockNameFromFullPath(fullFilePath) {
-  const [, block] = fullFilePath.split('/').reverse();
+  const [, block] = fullFilePath.split(pathSep).reverse();
   return block;
 }
 
