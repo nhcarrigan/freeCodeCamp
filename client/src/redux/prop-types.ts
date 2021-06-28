@@ -120,6 +120,7 @@ export const User = PropTypes.shape({
     })
   ),
   sendQuincyEmail: PropTypes.bool,
+  sound: PropTypes.bool,
   theme: PropTypes.string,
   twitter: PropTypes.string,
   username: PropTypes.string,

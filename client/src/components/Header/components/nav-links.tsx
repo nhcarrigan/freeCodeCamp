@@ -24,6 +24,9 @@ import { updateUserFlag } from '../../../redux/settings';
 import envData from '../../../../../config/env.json';
 import createLanguageRedirect from '../../create-language-redirect';
 import createExternalRedirect from '../../create-external-redirects';
+import * as Tone from 'tone';
+import store from 'store';
+
 import {
   availableLangs,
   i18nextCodes,
@@ -51,6 +54,21 @@ const mapDispatchToProps = {
 export class NavLinks extends Component<NavLinksProps, {}> {
   static displayName: string;
   toggleTheme(currentTheme = 'default', toggleNightMode: any) {
+    const playSound = store.get('fcc-sound');
+    if (playSound) {
+      const nightToDayPlayer = new Tone.Player().toDestination();
+      const dayToNightPlayer = new Tone.Player().toDestination();
+      // eslint-disable-next-line no-unused-expressions
+      Tone.context.state === 'running' ? null : Tone.context.resume();
+      // eslint-disable-next-line no-unused-expressions
+      currentTheme === 'night'
+        ? nightToDayPlayer
+            .load('https://cdn.nhcarrigan.com/content/audio/day.mp3')
+            .then(() => nightToDayPlayer.start(1))
+        : dayToNightPlayer
+            .load('https://cdn.nhcarrigan.com/content/audio/night.mp3')
+            .then(() => dayToNightPlayer.start(1));
+    }
     toggleNightMode(currentTheme === 'night' ? 'default' : 'night');
   }
 
