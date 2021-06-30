@@ -14,7 +14,7 @@ import ThemeSettings from './theme';
 import UsernameSettings from './username';
 import BlockSaveButton from '../helpers/form/block-save-button';
 import { withTranslation } from 'react-i18next';
-import SoundSettings from './Sound';
+import SoundSettings from './sound';
 
 type FormValues = {
   name: string;

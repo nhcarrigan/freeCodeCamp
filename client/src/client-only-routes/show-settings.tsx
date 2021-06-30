@@ -62,7 +62,7 @@ const mapDispatchToProps = {
   navigate,
   submitNewAbout,
   toggleNightMode: (theme: string) => updateUserFlag({ theme }),
-  toggleSoundMode: (sound: boolean) => updateUserFlag({sound}),
+  toggleSoundMode: (sound: boolean) => updateUserFlag({ sound }),
   updateInternetSettings: updateUserFlag,
   updateIsHonest: updateUserFlag,
   updatePortfolio: updateUserFlag,

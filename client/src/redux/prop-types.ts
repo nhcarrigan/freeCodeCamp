@@ -274,6 +274,7 @@ export type UserType = {
   };
   progressTimestamps: Array<unknown>;
   sendQuincyEmail: boolean;
+  sound: boolean;
   theme: string;
   twitter: string;
   username: string;

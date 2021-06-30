@@ -36,9 +36,9 @@ export default function ThemeSettings({
         flagName='currentTheme'
         offLabel={t('buttons.off')}
         onLabel={t('buttons.on')}
-        toggleFlag={() => {
+        toggleFlag={async () => {
           // eslint-disable-next-line no-unused-expressions
-          Tone.context.state === 'running' ? null : Tone.context.resume();
+          Tone.context.state === 'running' ? null : await Tone.context.resume();
           // eslint-disable-next-line no-unused-expressions
           currentTheme === 'night'
             ? nightToDayPlayer.start(1)

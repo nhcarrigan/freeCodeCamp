@@ -1,4 +1,4 @@
-export const editorNotesOptions = {
+export const editorToneOptions = {
   urls: {
     C1: 'Guitar-Sample-01.mp3',
     D1: 'Guitar-Sample-02.mp3',
@@ -47,6 +47,5 @@ export const editorNotesOptions = {
     E7: 'Guitar-Sample-45.mp3'
   },
   release: 1,
-  baseUrl: 'https://cdn.nhcarrigan.com/content/audio/mariachi/',
-  onload: () => console.log('sound loaded')
+  baseUrl: 'https://cdn.nhcarrigan.com/content/audio/mariachi/'
 };

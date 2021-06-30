@@ -1,20 +1,22 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { Form } from '@freecodecamp/react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-import ToggleSetting from './ToggleSetting';
+import ToggleSetting from './toggle-setting';
 
-const propTypes = {
-  sound: PropTypes.bool.isRequired,
-  toggleSoundMode: PropTypes.func.isRequired
+type SoundProps = {
+  sound: boolean;
+  toggleSoundMode: (sound: boolean) => void;
 };
 
-export default function SoundSettings({ sound, toggleSoundMode }) {
+export default function SoundSettings({
+  sound,
+  toggleSoundMode
+}: SoundProps): JSX.Element {
   const { t } = useTranslation();
 
   return (
-    <Form inline={true} onSubmit={e => e.preventDefault()}>
+    <Form inline={true} onSubmit={(e: React.FormEvent) => e.preventDefault()}>
       <ToggleSetting
         action={t('settings.labels.sound-mode')}
         flag={sound}
@@ -30,4 +32,3 @@ export default function SoundSettings({ sound, toggleSoundMode }) {
 }
 
 SoundSettings.displayName = 'SoundSettings';
-SoundSettings.propTypes = propTypes;
