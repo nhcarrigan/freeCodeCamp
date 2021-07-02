@@ -4,11 +4,13 @@ import React, {
   Suspense,
   RefObject,
   forwardRef,
-  ForwardedRef
+  ForwardedRef,
+  useRef
 } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import Loadable from '@loadable/component';
+import * as Tone from 'tone';
 
 import {
   canFocusEditorSelector,
@@ -44,7 +46,10 @@ import type {
 import type ReactMonacoEditor from 'react-monaco-editor';
 
 import './editor.css';
+import { editorToneOptions } from '../../../utils/tone/editor-config';
+import { editorNotes } from '../../../utils/tone/editor-notes';
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 const MonacoEditor = Loadable(() => import('react-monaco-editor'));
 
 type PropTypes = {
@@ -184,6 +189,25 @@ const initialData: DataType = {
 
 const Editor = forwardRef(
   (props: PropTypes, ref: ForwardedRef<ReactMonacoEditor>): JSX.Element => {
+    const player = useRef<{
+      sampler: Tone.Sampler | undefined;
+      noteIndex: number;
+    }>({
+      // eslint-disable-next-line no-undefined
+      sampler: undefined,
+      noteIndex: 0
+    });
+
+    useEffect(() => {
+      if (!player.current.sampler) {
+        player.current.sampler = new Tone.Sampler({
+          ...editorToneOptions,
+          onload: () => {
+            console.log('loaded tone');
+          }
+        }).toDestination();
+      }
+    });
     // TODO: is there any point in initializing this? It should be fine with
     // data = {}
     const [data, setData] = useState(initialData);
@@ -585,6 +609,15 @@ const Editor = forwardRef(
         editableRegion.endLineNumber + 1
       ];
       updateFile({ key, editorValue, editableRegionBoundaries });
+      if (player.current.sampler && player.current.sampler.loaded) {
+        player.current.sampler.triggerAttack(
+          editorNotes[player.current.noteIndex]
+        );
+        player.current.noteIndex++;
+        if (player.current.noteIndex >= editorNotes.length) {
+          player.current.noteIndex = 0;
+        }
+      }
     };
 
     function showEditableRegion(editableBoundaries: number[]) {
