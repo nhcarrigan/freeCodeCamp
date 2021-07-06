@@ -37,13 +37,12 @@ export default function ThemeSettings({
         offLabel={t('buttons.off')}
         onLabel={t('buttons.on')}
         toggleFlag={async () => {
-          // eslint-disable-next-line no-unused-expressions
-          Tone.context.state === 'running' ? null : await Tone.context.resume();
-          // eslint-disable-next-line no-unused-expressions
-          currentTheme === 'night'
-            ? nightToDayPlayer.start(1)
-            : dayToNightPlayer.start(1);
-          toggleNightMode(currentTheme === 'night' ? 'default' : 'night');
+          if (Tone.context.state === 'running') await Tone.context.resume();
+          if (currentTheme === 'night') {
+            nightToDayPlayer.start(1);
+          } else {
+            dayToNightPlayer.start(1);
+          }
         }}
       />
     </Form>

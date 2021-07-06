@@ -56,19 +56,14 @@ export class NavLinks extends Component<NavLinksProps, {}> {
   async toggleTheme(currentTheme = 'default', toggleNightMode: any) {
     const playSound = store.get('fcc-sound') as boolean;
     if (playSound) {
-      const nightToDayPlayer = new Tone.Player().toDestination();
-      const dayToNightPlayer = new Tone.Player().toDestination();
-      // eslint-disable-next-line no-unused-expressions
-      Tone.context.state === 'running' ? null : await Tone.context.resume();
-      // eslint-disable-next-line no-unused-expressions
-      currentTheme === 'night'
-        ? await nightToDayPlayer
-            .load('https://cdn.nhcarrigan.com/content/audio/day.mp3')
-            .then(() => nightToDayPlayer.start(1))
-        : await dayToNightPlayer
-            .load('https://cdn.nhcarrigan.com/content/audio/night.mp3')
-            .then(() => dayToNightPlayer.start(1));
-    }
+      const player = new Tone.Player().toDestination();
+      if (Tone.context.state !== 'running') Tone.context.resume();
+      if (currentTheme === 'night') {
+        await player.load('https://cdn.nhcarrigan.com/content/audio/day.mp3');
+      } else {
+        await player.load('https://cdn.nhcarrigan.com/content/audio/night.mp3');
+      }
+      player.start(1);
     toggleNightMode(currentTheme === 'night' ? 'default' : 'night');
   }
 

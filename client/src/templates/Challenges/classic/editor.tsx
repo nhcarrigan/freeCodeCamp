@@ -615,8 +615,7 @@ const Editor = forwardRef(
 
 
       if (
-        player.current.sampler &&
-        player.current.sampler.loaded &&
+        player.current.sampler?.loaded &&
         player.current.shouldPlay
       ) {
         player.current.sampler.triggerAttack(

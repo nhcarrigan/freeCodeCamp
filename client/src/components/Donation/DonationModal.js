@@ -76,8 +76,7 @@ function DonateModal({
       const player = new Tone.Player(
         'https://cdn.nhcarrigan.com/content/audio/donate.mp3'
       ).toDestination();
-      // eslint-disable-next-line no-unused-expressions
-      Tone.context.state === 'running' ? null : Tone.context.resume();
+      if (Tone.context.state !== 'running') Tone.context.resume();
       player.autostart = playSound;
       executeGA({ type: 'modal', data: '/donation-modal' });
       executeGA({

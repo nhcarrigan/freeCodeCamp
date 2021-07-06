@@ -21,7 +21,6 @@ export const sagas = [];
 export const createFlashMessage = createAction(
   types.createFlashMessage,
   (msg: { type: string; message: string }) => {
-    console.log(msg);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const playSound = store.get('fcc-sound') as boolean;
     if (Tone.context.state !== 'running') {
