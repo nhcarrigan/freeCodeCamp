@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import Loadable from '@loadable/component';
 import * as Tone from 'tone';
+import store from 'store';
 
 import {
   canFocusEditorSelector,
@@ -192,10 +193,12 @@ const Editor = forwardRef(
     const player = useRef<{
       sampler: Tone.Sampler | undefined;
       noteIndex: number;
+      shouldPlay: boolean;
     }>({
       // eslint-disable-next-line no-undefined
       sampler: undefined,
-      noteIndex: 0
+      noteIndex: 0,
+      shouldPlay: !!store.get('fcc-sound')
     });
 
     useEffect(() => {
@@ -609,7 +612,13 @@ const Editor = forwardRef(
         editableRegion.endLineNumber + 1
       ];
       updateFile({ key, editorValue, editableRegionBoundaries });
-      if (player.current.sampler && player.current.sampler.loaded) {
+
+
+      if (
+        player.current.sampler &&
+        player.current.sampler.loaded &&
+        player.current.shouldPlay
+      ) {
         player.current.sampler.triggerAttack(
           editorNotes[player.current.noteIndex]
         );
