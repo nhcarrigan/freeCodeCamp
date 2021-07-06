@@ -5,19 +5,12 @@ import store from 'store';
 
 const soundKey = 'fcc-sound';
 
-export function setSound(currentSetting = false, newSetting) {
-  if (currentSetting !== newSetting) {
-    store.set(soundKey, newSetting);
-  }
+export function setSound(setting) {
+  store.set(soundKey, setting);
 }
 
-function* updateLocalSoundSaga({ payload: { user, sound } }) {
-  const currentSetting = store.get(soundKey) || false;
-  if (user) {
-    const { sound = false } = user;
-    return setSound(currentSetting, sound);
-  }
-  return setSound(currentSetting, sound);
+function* updateLocalSoundSaga({ payload: { sound } }) {
+  return setSound(sound);
 }
 
 export function createSoundModeSaga(types) {
