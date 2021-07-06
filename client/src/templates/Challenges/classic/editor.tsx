@@ -203,12 +203,9 @@ const Editor = forwardRef(
 
     useEffect(() => {
       if (!player.current.sampler) {
-        player.current.sampler = new Tone.Sampler({
-          ...editorToneOptions,
-          onload: () => {
-            console.log('loaded tone');
-          }
-        }).toDestination();
+        player.current.sampler = new Tone.Sampler(
+          editorToneOptions
+        ).toDestination();
       }
     });
     // TODO: is there any point in initializing this? It should be fine with
@@ -613,11 +610,7 @@ const Editor = forwardRef(
       ];
       updateFile({ key, editorValue, editableRegionBoundaries });
 
-
-      if (
-        player.current.sampler?.loaded &&
-        player.current.shouldPlay
-      ) {
+      if (player.current.sampler?.loaded && player.current.shouldPlay) {
         player.current.sampler.triggerAttack(
           editorNotes[player.current.noteIndex]
         );

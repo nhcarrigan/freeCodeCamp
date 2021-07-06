@@ -43,6 +43,7 @@ export default function ThemeSettings({
           } else {
             dayToNightPlayer.start(1);
           }
+          toggleNightMode(currentTheme === 'night' ? 'default' : 'night');
         }}
       />
     </Form>

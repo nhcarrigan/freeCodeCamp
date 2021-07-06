@@ -57,13 +57,14 @@ export class NavLinks extends Component<NavLinksProps, {}> {
     const playSound = store.get('fcc-sound') as boolean;
     if (playSound) {
       const player = new Tone.Player().toDestination();
-      if (Tone.context.state !== 'running') Tone.context.resume();
+      if (Tone.context.state !== 'running') await Tone.context.resume();
       if (currentTheme === 'night') {
         await player.load('https://cdn.nhcarrigan.com/content/audio/day.mp3');
       } else {
         await player.load('https://cdn.nhcarrigan.com/content/audio/night.mp3');
       }
       player.start(1);
+    }
     toggleNightMode(currentTheme === 'night' ? 'default' : 'night');
   }
 
