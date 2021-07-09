@@ -9,9 +9,12 @@ export function setSound(setting) {
   store.set(soundKey, setting);
 }
 
-function* updateLocalSoundSaga({ payload: { sound } }) {
+function* updateLocalSoundSaga({ payload: { user, sound } }) {
+  if (user) {
+    const { sound = false } = user;
+    return setSound(sound);
+  }
   return setSound(sound);
-}
 
 export function createSoundModeSaga(types) {
   return [
