@@ -15,6 +15,7 @@ function* updateLocalSoundSaga({ payload: { user, sound } }) {
     return setSound(sound);
   }
   return setSound(sound);
+}
 
 export function createSoundModeSaga(types) {
   return [
